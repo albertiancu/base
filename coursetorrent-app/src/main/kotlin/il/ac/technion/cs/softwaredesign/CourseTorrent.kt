@@ -1,5 +1,7 @@
 package il.ac.technion.cs.softwaredesign
 
+import java.lang.IllegalArgumentException
+
 /**
  * This is the class implementing CourseTorrent, a BitTorrent client.
  *
@@ -19,7 +21,13 @@ class CourseTorrent {
      * @throws IllegalStateException If the infohash of [torrent] is already loaded.
      * @return The infohash of the torrent, i.e., the SHA-1 of the `info` key of [torrent].
      */
-    fun load(torrent: ByteArray): String = TODO("Implement me!")
+    fun load(torrent: String): String {
+       // if(!isValidMetaInfo(torrent)) throw IllegalAccessException()
+        var infohash = getInfoHash(torrent)
+        if(!keyExists(infohash)) throw IllegalStateException()
+        writeToDB(infohash, torrent)
+        return infohash
+    }
 
     /**
      * Remove the torrent identified by [infohash] from the system.
@@ -28,7 +36,10 @@ class CourseTorrent {
      *
      * @throws IllegalArgumentException If [infohash] is not loaded.
      */
-    fun unload(infohash: String): Unit = TODO("Implement me!")
+    fun unload(infohash: String): Unit {
+        if(!keyExists(infohash)) throw IllegalArgumentException()
+        eraseFromDB(infohash)
+    }
 
     /**
      * Return the announce URLs for the loaded torrent identified by [infohash].
@@ -43,5 +54,9 @@ class CourseTorrent {
      * @throws IllegalArgumentException If [infohash] is not loaded.
      * @return Tier lists of announce URLs.
      */
-    fun announces(infohash: String): List<List<String>> = TODO("Implement me!")
+   // fun announces(infohash: String): List<List<String>> {
+      //  if(!keyExists(infohash)) throw IllegalArgumentException()
+        //return readFromDB(infohash)
+
+    //}
 }
