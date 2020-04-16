@@ -5,7 +5,7 @@ plugins {
 application {
     mainClassName = "il.ac.technion.cs.softwaredesign.MainKt"
 }
-
+//test
 val junitVersion: String? by extra
 val hamkrestVersion: String? by extra
 
